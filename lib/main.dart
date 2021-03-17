@@ -28,11 +28,16 @@ class MyApp extends StatelessWidget {
                   fontWeight: FontWeight.bold),
             ),
       ),
-      home: CategoriesScreen(),
+      // home: CategoriesScreen(),
+      initialRoute: '/', // default は '/'
       routes: {
+        // デフォルトで'/'に設定したrootが動くようになっている
+        // そのためhome:で指定しても、こちらが優先されるので注意が必要
+        '/': (ctx) => CategoriesScreen(),
         // /を付ける理由はwebAppの変更の対応に必要だから
         // CategoryMealsScreenにはpushNamedのargumentsを利用して変数を渡している
-        '/category-meal': (ctx) => CategoryMealsScreen(),
+        CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen(),
+        // '/category-meal': (ctx) => CategoryMealsScreen(),
       },
     );
   }

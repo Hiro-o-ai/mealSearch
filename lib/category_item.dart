@@ -11,15 +11,19 @@ class CategoryItem extends StatelessWidget {
 
   // BuildcontextをctxとしているのはonTapの部分でselectCategory(context)とした時に混乱させないため
   void selectCategory(BuildContext ctx) {
-    Navigator.of(ctx)
-        .pushNamed('/category-meal', arguments: {'id': id, 'title': title}
-            // MaterialPageRouteはページ遷移時のanimationなどを行う
-            // .push(MaterialPageRoute(
-            //   builder: (_) {
-            //     return CategoryMealsScreen(id, title);
-            //   },
-            // ),
-            );
+    Navigator.of(ctx).pushNamed(
+      CategoryMealsScreen.routeName,
+      arguments: {
+        'id': id,
+        'title': title,
+      },
+      // MaterialPageRouteはページ遷移時のanimationなどを行う
+      // .push(MaterialPageRoute(
+      //   builder: (_) {
+      //     return CategoryMealsScreen(id, title);
+      //   },
+      // ),
+    );
   }
 
   @override
