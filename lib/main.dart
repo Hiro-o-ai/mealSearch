@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import './category_meals_screen.dart';
 import './categories_screen.dart';
 
 void main() => runApp(MyApp());
@@ -28,6 +29,11 @@ class MyApp extends StatelessWidget {
             ),
       ),
       home: CategoriesScreen(),
+      routes: {
+        // /を付ける理由はwebAppの変更の対応に必要だから
+        // CategoryMealsScreenにはpushNamedのargumentsを利用して変数を渡している
+        '/category-meal': (ctx) => CategoryMealsScreen(),
+      },
     );
   }
 }
