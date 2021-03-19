@@ -9,12 +9,45 @@ class MealItem extends StatelessWidget {
   final Complexity complexity;
   final Affordability affordability;
 
-  MealItem(
-      {@required this.title,
-      @required this.imageUrl,
-      @required this.duration,
-      @required this.complexity,
-      @required this.affordability});
+  MealItem({
+    @required this.title,
+    @required this.imageUrl,
+    @required this.duration,
+    @required this.complexity,
+    @required this.affordability,
+  });
+
+  String get complexityText {
+    switch (complexity) {
+      case Complexity.Simple:
+        return 'Simple';
+        break;
+      case Complexity.Challenging:
+        return 'Challenging';
+        break;
+      case Complexity.Hard:
+        return 'Hard';
+        break;
+      default:
+        return 'Unknown';
+    }
+  }
+
+  String get affordabilityText {
+    switch (affordability) {
+      case Affordability.Affordable:
+        return 'Affordable';
+        break;
+      case Affordability.Pricey:
+        return 'Pricey';
+        break;
+      case Affordability.Luxurious:
+        return 'Expensive';
+        break;
+      default:
+        return 'Unknown';
+    }
+  }
 
   void selectMeal() {}
 
@@ -30,6 +63,7 @@ class MealItem extends StatelessWidget {
         margin: EdgeInsets.all(10),
         child: Column(
           children: <Widget>[
+            // image画像をCardwidget上に置くため
             Stack(
               children: <Widget>[
                 ClipRRect(
@@ -45,8 +79,66 @@ class MealItem extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
+                // StackWidget上で絶対位置で指定するため
+                Positioned(
+                  bottom: 20,
+                  right: 10,
+                  // overflowで文字列の折り返しが効かなかったので追加
+                  child: Container(
+                    width: 300,
+                    // blackの後ろの数値は透明度
+                    color: Colors.black54,
+                    padding: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+                    child: Text(
+                      title,
+                      style: TextStyle(
+                        fontSize: 26,
+                        color: Colors.white,
+                      ),
+                      softWrap: true,
+                      // 文字列を折り返すため
+                      overflow: TextOverflow.fade,
+                    ),
+                  ),
+                )
               ],
             ),
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: Row(
+                // Expandedでも同様の効果が得られる
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Icon(Icons.schedule),
+                      SizedBox(
+                        width: 6,
+                      ),
+                      Text('$duration min')
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Icon(Icons.work),
+                      SizedBox(
+                        width: 6,
+                      ),
+                      Text(complexityText)
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Icon(Icons.attach_money),
+                      SizedBox(
+                        width: 6,
+                      ),
+                      Text(affordabilityText)
+                    ],
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),
