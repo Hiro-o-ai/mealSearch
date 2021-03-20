@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'screens/meal_detail_screen.dart';
 import 'screens/category_meals_screen.dart';
 import 'screens/categories_screen.dart';
 
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         // CategoryMealsScreenにはpushNamedのargumentsを利用して変数を渡している
         CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen(),
         // '/category-meal': (ctx) => CategoryMealsScreen(),
+        MealDetailScreen.routeName: (ctx) => MealDetailScreen(),
       },
     );
   }

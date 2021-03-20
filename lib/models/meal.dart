@@ -1,6 +1,4 @@
-import 'dart:async';
-
-// @requiredに必要なパッケージ
+// @requiredに必要なパッケージ?
 import 'package:flutter/foundation.dart';
 
 enum Complexity { Simple, Challenging, Hard }
