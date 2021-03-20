@@ -41,6 +41,26 @@ class MyApp extends StatelessWidget {
         // '/category-meal': (ctx) => CategoryMealsScreen(),
         MealDetailScreen.routeName: (ctx) => MealDetailScreen(),
       },
+      // 登録されていない画面遷移がある時に機能する（例えば、MealDetailScreen.routeNameの行をコメントアウトするなどの場合）
+      // ただし、これはroutesに登録されているとこちらは使用されない
+      onGenerateRoute: (settings) {
+        // こんな使い方が有効
+        // if (settings.name == '/meal_detail') {
+        //   return ...;
+        // } else if (settings.name == '/something-else') {
+        //   return ...;
+        // }
+        // print(settings.arguments);
+        // return MaterialPageRoute(
+        //   builder: (ctx) => CategoriesScreen(),
+        // );
+      },
+      // エラーが発生した時に使用されるroute
+      onUnknownRoute: (settings) {
+        return MaterialPageRoute(
+          builder: (ctx) => CategoriesScreen(),
+        );
+      },
     );
   }
 }
