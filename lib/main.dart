@@ -61,6 +61,7 @@ class MyApp extends StatelessWidget {
           builder: (ctx) => CategoriesScreen(),
         );
       },
+      // onGenerateRouteは未登録の名前付きルートがあった場合に利用され、onUnknownRouteはonGenerateRouteにもないか、エラーが発生した時に利用される
     );
   }
 }
