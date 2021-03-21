@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'screens/tabs_screen.dart';
 import 'screens/meal_detail_screen.dart';
 import 'screens/category_meals_screen.dart';
 import 'screens/categories_screen.dart';
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
       routes: {
         // デフォルトで'/'に設定したrootが動くようになっている
         // そのためhome:で指定しても、こちらが優先されるので注意が必要
-        '/': (ctx) => CategoriesScreen(),
+        '/': (ctx) => tabsScreen(),
         // /を付ける理由はwebAppの変更の対応に必要だから
         // CategoryMealsScreenにはpushNamedのargumentsを利用して変数を渡している
         CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen(),
@@ -58,7 +59,7 @@ class MyApp extends StatelessWidget {
       // エラーが発生した時に使用されるroute
       onUnknownRoute: (settings) {
         return MaterialPageRoute(
-          builder: (ctx) => CategoriesScreen(),
+          builder: (ctx) => tabsScreen(),
         );
       },
       // onGenerateRouteは未登録の名前付きルートがあった場合に利用され、onUnknownRouteはonGenerateRouteにもないか、エラーが発生した時に利用される
