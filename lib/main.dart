@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
+import 'screens/filter_screen.dart';
 import 'screens/tabs_screen.dart';
 import 'screens/meal_detail_screen.dart';
 import 'screens/category_meals_screen.dart';
-import 'screens/categories_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -41,6 +41,7 @@ class MyApp extends StatelessWidget {
         CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen(),
         // '/category-meal': (ctx) => CategoryMealsScreen(),
         MealDetailScreen.routeName: (ctx) => MealDetailScreen(),
+        FilterScreen.routeName: (ctx) => FilterScreen(),
       },
       // 登録されていない画面遷移がある時に機能する（例えば、MealDetailScreen.routeNameの行をコメントアウトするなどの場合）
       // ただし、これはroutesに登録されているとこちらは使用されない
