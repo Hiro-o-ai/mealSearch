@@ -85,6 +85,15 @@ class MealDetailScreen extends StatelessWidget {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(
+          Icons.delete,
+        ),
+        onPressed: () {
+          // ページを削除した後にこのページに移動させたwidget(meal_item)にmealIdを渡す
+          Navigator.of(context).pop(mealId);
+        },
+      ),
     );
   }
 }
