@@ -22,6 +22,7 @@ class _MyAppState extends State<MyApp> {
     'vegetarian': false,
   };
   List<Meal> _availableMeals = DUMMY_MEALS;
+  List<Meal> _favoriteMeals = [];
 
   void _setFilters(Map<String, bool> filterData) {
     setState(
@@ -47,6 +48,26 @@ class _MyAppState extends State<MyApp> {
         ).toList();
       },
     );
+  }
+
+  void _toggleFavorite(String mealId) {
+    final existingIndex =
+        _favoriteMeals.indexWhere((meal) => meal.id == mealId);
+    if (existingIndex >= 0) {
+      setState(() {
+        _favoriteMeals.removeAt(existingIndex);
+      });
+    } else {
+      setState(() {
+        _favoriteMeals.add(
+          DUMMY_MEALS.firstWhere((meal) => meal.id == mealId),
+        );
+      });
+    }
+  }
+
+  bool _isMealFavorite(String id) {
+    return _favoriteMeals.any((meal) => meal.id == id);
   }
 
   @override
@@ -76,13 +97,14 @@ class _MyAppState extends State<MyApp> {
       routes: {
         // デフォルトで'/'に設定したrootが動くようになっている
         // そのためhome:で指定しても、こちらが優先されるので注意が必要
-        '/': (ctx) => tabsScreen(),
+        '/': (ctx) => TabsScreen(_favoriteMeals),
         // /を付ける理由はwebAppの変更の対応に必要だから
         // CategoryMealsScreenにはpushNamedのargumentsを利用して変数を渡している
         CategoryMealsScreen.routeName: (ctx) =>
             CategoryMealsScreen(_availableMeals),
         // '/category-meal': (ctx) => CategoryMealsScreen(),
-        MealDetailScreen.routeName: (ctx) => MealDetailScreen(),
+        MealDetailScreen.routeName: (ctx) =>
+            MealDetailScreen(_toggleFavorite, _isMealFavorite),
         FilterScreen.routeName: (ctx) => FilterScreen(_setFilters, _filters),
       },
       // 登録されていない画面遷移がある時に機能する（例えば、MealDetailScreen.routeNameの行をコメントアウトするなどの場合）
@@ -102,7 +124,7 @@ class _MyAppState extends State<MyApp> {
       // エラーが発生した時に使用されるroute
       onUnknownRoute: (settings) {
         return MaterialPageRoute(
-          builder: (ctx) => tabsScreen(),
+          builder: (ctx) => TabsScreen(_favoriteMeals),
         );
       },
       // onGenerateRouteは未登録の名前付きルートがあった場合に利用され、onUnknownRouteはonGenerateRouteにもないか、エラーが発生した時に利用される

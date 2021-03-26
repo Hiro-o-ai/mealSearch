@@ -3,26 +3,48 @@ import 'package:flutter/material.dart';
 import '../widgets/main_drawer.dart';
 import './favorites_screen.dart';
 import './categories_screen.dart';
+import '../models/meal.dart';
 
-class tabsScreen extends StatefulWidget {
+class TabsScreen extends StatefulWidget {
+  final List<Meal> favoriteMeals;
+
+  TabsScreen(this.favoriteMeals);
+
   @override
-  _tabsScreenState createState() => _tabsScreenState();
+  _TabsScreenState createState() => _TabsScreenState();
 }
 
-class _tabsScreenState extends State<tabsScreen> {
+class _TabsScreenState extends State<TabsScreen> {
   // actionやwidgetなども入れることができるので、場合分けも可能となる
-  final List<Map<String, Object>> _pages = [
-    {
-      'page': CategoriesScreen(),
-      'title': 'Categories',
-    },
-    {
-      'page': FavoritesScreen(),
-      'title': 'Your Favorite',
-    },
-  ];
+  // final List<Map<String, Object>> _pages = [
+  // {
+  //   'page': CategoriesScreen(),
+  //   'title': 'Categories',
+  // },
+  // {
+  //   'page': FavoritesScreen(widget.favoriteMeals),
+  //   'title': 'Your Favorite',
+  // },
+  // ];
 
+  List<Map<String, Object>> _pages;
   int _selectedPageIndex = 0;
+
+  // widget.favoriteMealsがinitに使用しないとエラーとなるため
+  @override
+  void initState() {
+    _pages = [
+      {
+        'page': CategoriesScreen(),
+        'title': 'Categories',
+      },
+      {
+        'page': FavoritesScreen(widget.favoriteMeals),
+        'title': 'Your Favorite',
+      },
+    ];
+    super.initState();
+  }
 
   void _selectedPage(int index) {
     setState(() {

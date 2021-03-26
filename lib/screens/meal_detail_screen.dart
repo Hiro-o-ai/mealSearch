@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:meal_search/models/meal.dart';
 
 import '../dummy_data.dart';
 
 class MealDetailScreen extends StatelessWidget {
   static const routeName = '/meal-detail';
+
+  final Function toggleFavorite;
+  final Function isFavorite;
+
+  MealDetailScreen(this.toggleFavorite, this.isFavorite);
 
   Widget buildSectionTitle(BuildContext context, String text) {
     return Container(
@@ -87,12 +93,13 @@ class MealDetailScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(
-          Icons.delete,
+          isFavorite(mealId) ? Icons.star : Icons.star_border,
         ),
-        onPressed: () {
-          // ページを削除した後にこのページに移動させたwidget(meal_item)にmealIdを渡す
-          Navigator.of(context).pop(mealId);
-        },
+        onPressed: () => toggleFavorite(mealId),
+        // () {
+        // ページを削除した後にこのページに移動させたwidget(meal_item)にmealIdを渡す
+        // Navigator.of(context).pop(mealId);
+        // },
       ),
     );
   }
